@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /s \"D:\\\\PROJECTS\\\\MYWEBSITE\\\\otienopetert\\\\resources\")",
+      "Bash(cat:*)",
+      "WebFetch(domain:leosamfinco.com)",
+      "Bash(ls:*)"
+    ]
+  }
+}
