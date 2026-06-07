@@ -4,7 +4,10 @@
       "Bash(dir /s \"D:\\\\PROJECTS\\\\MYWEBSITE\\\\otienopetert\\\\resources\")",
       "Bash(cat:*)",
       "WebFetch(domain:leosamfinco.com)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
