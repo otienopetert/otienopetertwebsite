@@ -39,7 +39,7 @@
                 <!-- Highlights -->
                 <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl p-6 border-l-4 border-purple-500">
-                        <h3 class="text-3xl font-bold text-purple-600 mb-2">5+</h3>
+                        <h3 class="text-3xl font-bold text-purple-600 mb-2">10+</h3>
                         <p class="text-gray-700 font-medium">Years Experience</p>
                     </div>
                     <div class="bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl p-6 border-l-4 border-blue-500">
