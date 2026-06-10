@@ -37,6 +37,7 @@
                         <a href="#skills" class="nav-link text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Skills</a>
                         <a href="#projects" class="nav-link text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
                         <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                        <a href="/love/love.html" class="nav-link text-pink-500 hover:text-pink-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">💌</a>
                     </div>
                 </div>
 
@@ -60,6 +61,7 @@
                 <a href="#skills" class="nav-link block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Skills</a>
                 <a href="#projects" class="nav-link block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Projects</a>
                 <a href="#contact" class="nav-link block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                <a href="/love/love.html" class="nav-link block text-pink-500 hover:text-pink-700 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">💌</a>
             </div>
         </div>
     </nav>

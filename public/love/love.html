@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a very important question 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush:#fdf3f4;       /* page background */
+    --card:#fff9f7;        /* card background */
+    --ink:#5a4a4f;         /* warm dark text */
+    --rose:#f6b8c3;        /* primary pink */
+    --rose-deep:#ef9aac;   /* hover pink */
+    --butter:#f7e9d4;      /* secondary button */
+    --shadow:0 18px 45px rgba(214,144,160,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:var(--blush);
+    font-family:'Quicksand',sans-serif;
+    color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  /* floating flowers */
+  .petal{position:fixed;font-size:22px;opacity:.55;animation:drift 9s ease-in-out infinite;pointer-events:none}
+  @keyframes drift{
+    0%,100%{transform:translateY(0) rotate(0deg)}
+    50%{transform:translateY(-22px) rotate(12deg)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .petal{animation:none}
+    .card{animation:none}
+  }
+
+  .card{
+    background:var(--card);
+    width:min(92vw,520px);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:52px 40px 44px;
+    text-align:center;
+    animation:pop .5s ease;
+    position:relative;
+  }
+  @keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+
+  .step{display:none}
+  .step.active{display:block}
+
+  .pet{
+    width:130px;height:130px;border-radius:22px;object-fit:cover;
+    margin:0 auto 26px;display:block;
+    box-shadow:0 10px 24px rgba(214,144,160,.35);
+  }
+  h1{
+    font-size:clamp(1.5rem,4.5vw,1.9rem);
+    font-weight:700;letter-spacing:.04em;
+    margin-bottom:34px;line-height:1.45;
+  }
+  h1 .fl{font-size:1.1em}
+  .hand{font-family:'Gochi Hand',cursive;font-size:1.15em;color:var(--rose-deep)}
+
+  .btn-row{display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap}
+  button{
+    font-family:inherit;font-weight:700;letter-spacing:.05em;
+    border:none;border-radius:999px;cursor:pointer;
+    padding:14px 34px;font-size:1rem;color:var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease, background .15s;
+  }
+  button:focus-visible{outline:3px solid var(--rose-deep);outline-offset:3px}
+  .yes{
+    background:var(--rose);
+    box-shadow:0 8px 18px rgba(239,154,172,.45);
+  }
+  .yes:hover{background:var(--rose-deep);transform:translateY(-2px) scale(1.04)}
+  .no{
+    background:var(--butter);
+    position:relative;  /* becomes absolute once it starts running */
+    font-size:.85rem;padding:11px 24px;
+  }
+  .wide{
+    width:100%;background:var(--rose);margin-top:26px;
+    box-shadow:0 8px 18px rgba(239,154,172,.45);
+  }
+  .wide:hover{background:var(--rose-deep);transform:translateY(-2px)}
+
+  /* step 2 inputs */
+  label{display:block;text-align:left;font-size:.8rem;font-weight:700;
+        letter-spacing:.12em;text-transform:uppercase;color:#a98b92;margin:18px 0 8px}
+  input[type=date], select{
+    width:100%;padding:14px 16px;border-radius:14px;
+    border:2px solid #f3dde1;background:#fff;
+    font-family:inherit;font-size:1rem;color:var(--ink);
+  }
+  input:focus,select:focus{outline:none;border-color:var(--rose-deep)}
+
+  /* step 3 food grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
+  @media (max-width:430px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .food{
+    background:#fff;border:2px solid transparent;border-radius:18px;
+    padding:18px 8px 14px;font-size:.85rem;font-weight:600;
+  }
+  .food .em{display:block;font-size:1.9rem;margin-bottom:8px}
+  .food:hover{transform:translateY(-3px);box-shadow:0 8px 16px rgba(214,144,160,.25)}
+  .food.picked{border-color:var(--rose-deep);background:#fff2f5}
+
+  /* finale */
+  .big{font-size:3.2rem;margin-bottom:14px}
+  .sum{
+    background:#fff;border-radius:16px;padding:18px 22px;margin:18px 0 6px;
+    text-align:left;line-height:2;font-weight:600;
+  }
+  .confetti{position:fixed;top:-20px;font-size:20px;animation:fall linear forwards;pointer-events:none}
+  @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+</style>
+</head>
+<body>
+
+<!-- ============ CONFIG: badilisha hapa tu ============ -->
+<script>
+  const CONFIG = {
+    petPhoto: "cat.jpg",   // weka URL ya picha yako/cat
+    question: "Will you go on a date with me?",
+    foods: [
+      ["🍕","Pizza"], ["🍣","Sushi"], ["🍔","Burgers"],
+      ["🍝","Pasta"], ["🌮","Tacos"], ["🍜","Ramen"]
+    ],
+    noPhrases: ["no… 🥺","are you sure? 😢","really?? 💔","think again! 🙏","last chance 😭","NO option left 😌"],
+    // hiari: namba ya WhatsApp itakayotumiwa jibu (format 2557XXXXXXXX) au acha tupu ""
+    whatsapp: ""
+  };
+</script>
+<!-- ==================================================== -->
+
+<div class="card" id="card">
+
+  <!-- STEP 1: the question -->
+  <section class="step active" id="s1">
+    <img class="pet" id="petPhoto" alt="cute cat" />
+    <h1><span class="fl">🌸</span> <span id="qText"></span> <span class="fl">🌸</span></h1>
+    <div class="btn-row" id="row1">
+      <button class="no" id="noBtn" type="button">no… 🥺</button>
+      <button class="yes" id="yesBtn" type="button">YES 💕</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: pick a day -->
+  <section class="step" id="s2">
+    <h1>📅🐾<br>So… <span class="hand">when</span> are you free?</h1>
+    <label for="day">Pick a day</label>
+    <input type="date" id="day">
+    <label for="time">Pick a time</label>
+    <select id="time">
+      <option>☀️ Lunch (1:00 PM)</option>
+      <option>🌇 Evening (6:30 PM)</option>
+      <option>🌙 Dinner (8:00 PM)</option>
+    </select>
+    <button class="wide" id="setDate" type="button">set the date! 🌷</button>
+  </section>
+
+  <!-- STEP 3: food -->
+  <section class="step" id="s3">
+    <h1>What are we feeling? 🍜✨</h1>
+    <div class="grid" id="foodGrid"></div>
+    <button class="wide" id="foodBtn" type="button" disabled style="opacity:.5">this one! →</button>
+  </section>
+
+  <!-- STEP 4: finale -->
+  <section class="step" id="s4">
+    <div class="big">🥳💖</div>
+    <h1>It's a date!</h1>
+    <div class="sum" id="summary"></div>
+    <button class="wide" id="shareBtn" type="button" style="display:none">send it on WhatsApp 💬</button>
+  </section>
+
+</div>
+
+<script>
+/* ---------- setup from CONFIG ---------- */
+document.getElementById('petPhoto').src = CONFIG.petPhoto;
+document.getElementById('qText').textContent = CONFIG.question;
+
+/* floating petals */
+"🌸🌷💮🌸🌷".match(/./gu).slice(0,8);
+for(let i=0;i<10;i++){
+  const f=document.createElement('div');
+  f.className='petal';
+  f.textContent=Math.random()<.5?'🌸':'🌷';
+  f.style.left=Math.random()*96+'vw';
+  f.style.top=Math.random()*92+'vh';
+  f.style.animationDelay=(Math.random()*6)+'s';
+  document.body.appendChild(f);
+}
+
+const show = id => {
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+};
+
+/* ---------- STEP 1: the runaway NO button ---------- */
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+let dodges = 0;
+
+function runAway(){
+  dodges++;
+  // it detaches and teleports anywhere in the viewport
+  noBtn.style.position='fixed';
+  const pad=70;
+  noBtn.style.left = (pad + Math.random()*(innerWidth -2*pad-noBtn.offsetWidth))+'px';
+  noBtn.style.top  = (pad + Math.random()*(innerHeight-2*pad-noBtn.offsetHeight))+'px';
+  // it shrinks…
+  noBtn.style.transform = `scale(${Math.max(0.35, 1 - dodges*0.12)})`;
+  // …its message gets desperate
+  noBtn.textContent = CONFIG.noPhrases[Math.min(dodges, CONFIG.noPhrases.length-1)];
+  // …and YES grows every time
+  yesBtn.style.transform = `scale(${1 + dodges*0.14})`;
+  if(dodges >= CONFIG.noPhrases.length){ noBtn.remove(); }
+}
+noBtn.addEventListener('mouseenter', runAway);   // desktop: dodges before the click
+noBtn.addEventListener('click', e => { e.preventDefault(); runAway(); }); // mobile: dodges on tap
+yesBtn.addEventListener('click', ()=> show('s2'));
+
+/* ---------- STEP 2 ---------- */
+const day = document.getElementById('day');
+day.min = new Date().toISOString().split('T')[0];   // hakuna dates za nyuma 😄
+document.getElementById('setDate').addEventListener('click', ()=>{
+  if(!day.value){ day.focus(); day.style.borderColor='#ef9aac'; return; }
+  show('s3');
+});
+
+/* ---------- STEP 3 ---------- */
+const grid = document.getElementById('foodGrid');
+const foodBtn = document.getElementById('foodBtn');
+let picked = null;
+CONFIG.foods.forEach(([em,name])=>{
+  const b=document.createElement('button');
+  b.type='button'; b.className='food';
+  b.innerHTML=`<span class="em">${em}</span>${name}`;
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.food').forEach(x=>x.classList.remove('picked'));
+    b.classList.add('picked');
+    picked = `${em} ${name}`;
+    foodBtn.disabled=false; foodBtn.style.opacity=1;
+  });
+  grid.appendChild(b);
+});
+foodBtn.addEventListener('click', ()=>{
+  const d = new Date(day.value).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const t = document.getElementById('time').value;
+  document.getElementById('summary').innerHTML =
+    `📅 <b>${d}</b><br>⏰ <b>${t}</b><br>🍽️ <b>${picked}</b>`;
+  show('s4');
+  confetti();
+  if(CONFIG.whatsapp){
+    const btn=document.getElementById('shareBtn');
+    btn.style.display='block';
+    btn.onclick=()=>{
+      const msg=encodeURIComponent(`YES! 💕 It's a date — ${d}, ${t}, ${picked} 🥰`);
+      open(`https://wa.me/${CONFIG.whatsapp}?text=${msg}`,'_blank');
+    };
+  }
+});
+
+/* ---------- confetti ---------- */
+function confetti(){
+  const bits="💖🌸✨💘🌷🎀";
+  for(let i=0;i<40;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.textContent=bits[Math.floor(Math.random()*bits.length)];
+    c.style.left=Math.random()*100+'vw';
+    c.style.animationDuration=(2.5+Math.random()*2.5)+'s';
+    c.style.animationDelay=(Math.random()*.8)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),6000);
+  }
+}
+</script>
+</body>
+</html>
